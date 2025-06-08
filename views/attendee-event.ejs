@@ -1,0 +1,16 @@
+<!DOCTYPE html><html><head><link rel="stylesheet" href="/style.css"><title><%= event.title %></title></head><body>
+    <h1><%= event.title %></h1>
+    <p><%= event.description %></p>
+    <p>Date: <%= event.date %></p>
+    
+    <% if (error) { %><p class="error"><%= error %></p><% } %>
+    
+    <form action="/attendee/event/<%= event.id %>" method="POST">
+      <label>Name: <input name="attendee_name" required></label><br>
+      <label>Full tickets (available: <%= event.full_qty %>): <input type="number" name="full_count" value="0"></label><br>
+      <label>Concession tickets (available: <%= event.conc_qty %>): <input type="number" name="conc_count" value="0"></label><br>
+      <button>Book Tickets</button>
+    </form>
+    <p><a href="/attendee">← Back</a></p>
+    </body></html>
+    

@@ -1,34 +1,29 @@
-
--- This makes sure that foreign_key constraints are observed and that errors will be thrown for violations
 PRAGMA foreign_keys=ON;
+BEGIN;
 
-BEGIN TRANSACTION;
-
--- Create your tables with SQL commands here (watch out for slight syntactical differences with SQLite vs MySQL)
-
-CREATE TABLE IF NOT EXISTS users (
-    user_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    user_name TEXT NOT NULL
+CREATE TABLE IF NOT EXISTS settings (
+  id INTEGER PRIMARY KEY,
+  site_name TEXT,
+  site_description TEXT
 );
 
-CREATE TABLE IF NOT EXISTS email_accounts (
-    email_account_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    email_address TEXT NOT NULL,
-    user_id  INT, --the user that the email account belongs to
-    FOREIGN KEY (user_id) REFERENCES users(user_id)
+INSERT OR IGNORE INTO settings (id, site_name, site_description)
+VALUES (1, 'My Events', 'Awesome events for everyone');
+
+CREATE TABLE IF NOT EXISTS events (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  title TEXT, description TEXT, date TEXT,
+  created_at TEXT, published_at TEXT,
+  full_qty INTEGER, full_price REAL,
+  conc_qty INTEGER, conc_price REAL,
+  is_published INTEGER
 );
 
--- Insert default data (if necessary here)
-
--- Set up three users
-INSERT INTO users ('user_name') VALUES ('Simon Star');
-INSERT INTO users ('user_name') VALUES ('Dianne Dean');
-INSERT INTO users ('user_name') VALUES ('Harry Hilbert');
-
--- Give Simon two email addresses and Diane one, but Harry has none
-INSERT INTO email_accounts ('email_address', 'user_id') VALUES ('simon@gmail.com', 1); 
-INSERT INTO email_accounts ('email_address', 'user_id') VALUES ('simon@hotmail.com', 1); 
-INSERT INTO email_accounts ('email_address', 'user_id') VALUES ('dianne@yahoo.co.uk', 2); 
+CREATE TABLE IF NOT EXISTS bookings (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  event_id INTEGER, attendee_name TEXT,
+  full_count INTEGER, conc_count INTEGER,
+  FOREIGN KEY(event_id) REFERENCES events(id)
+);
 
 COMMIT;
-

@@ -1,0 +1,11 @@
+<!DOCTYPE html><html><head><link rel="stylesheet" href="/style.css"><title>Attendee</title></head><body>
+    <h1><%= settings.site_name %></h1><p><%= settings.site_description %></p>
+    <h2>Upcoming Events</h2>
+    <ul>
+      <% events.forEach(e => { %>
+        <li><a href="/attendee/event/<%= e.id %>"><%= e.title %> — <%= e.date %></a></li>
+      <% }) %>
+    </ul>
+    <p><a href="/">← Home</a></p>
+    </body></html>
+    

@@ -1,0 +1,15 @@
+<!DOCTYPE html><html><head><link rel="stylesheet" href="/style.css"><title>Edit Event</title></head><body>
+    <h1>Edit Event</h1>
+    <form action="/organiser/edit/<%= event.id %>" method="POST">
+      <label>Title: <input name="title" value="<%= event.title %>" required></label><br>
+      <label>Date: <input type="date" name="date" value="<%= event.date %>" required></label><br>
+      <label>Description:<br><textarea name="description"><%= event.description %></textarea></label><br>
+      <label>Full tickets qty: <input type="number" name="full_qty" value="<%= event.full_qty %>"></label><br>
+      <label>Full price: <input type="number" step="0.01" name="full_price" value="<%= event.full_price %>"></label><br>
+      <label>Concession qty: <input type="number" name="conc_qty" value="<%= event.conc_qty %>"></label><br>
+      <label>Concession price: <input type="number" step="0.01" name="conc_price" value="<%= event.conc_price %>"></label><br>
+      <button>Save</button>
+    </form>
+    <p><a href="/organiser">← Back</a></p>
+    </body></html>
+    

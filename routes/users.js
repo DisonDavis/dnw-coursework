@@ -34,7 +34,7 @@ router.get("/list-users", (req, res, next) => {
  * @desc Displays a page with a form for creating a user record
  */
 router.get("/add-user", (req, res) => {
-    res.render("add-user.ejs");
+    res.render("settings.ejs");
 });
 
 /**
