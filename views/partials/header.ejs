@@ -8,10 +8,19 @@
   <link rel="stylesheet" href="/css/styles.css" />
 </head>
 <body>
-  <div class="container mt-4">
-
-    <% if (typeof showBackButton === 'undefined' || showBackButton) { %>
-      <div class="mb-3 d-flex justify-content-between">
-        <a href="/" class="btn btn-outline-primary">🏠 Home</a>
+  <!-- Top Bar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom shadow-sm mb-3">
+    <div class="container">
+      <span class="navbar-brand fw-bold">🎟 Event Manager</span>
+      <div class="d-flex align-items-center gap-2">
+        <% if (typeof showBackButton === 'undefined' || showBackButton) { %>
+          <a href="/" class="btn btn-outline-primary btn-sm">🏠 Home</a>
+        <% } %>
+        <% if (typeof session !== 'undefined' && session.isOrganiserLoggedIn) { %>
+          <a href="/organiser/logout" class="btn btn-outline-danger btn-sm">Logout</a>
+        <% } %>
       </div>
-    <% } %>
+    </div>
+  </nav>
+
+  <div class="container">

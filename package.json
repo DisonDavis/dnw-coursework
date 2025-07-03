@@ -7,8 +7,10 @@
     "clean-db": "rm -f database.db"
   },
   "dependencies": {
+    "dotenv": "^17.0.1",
     "ejs": "^3.1.8",
     "express": "^4.18.2",
+    "express-session": "^1.18.1",
     "sqlite3": "^5.1.2"
   }
 }
