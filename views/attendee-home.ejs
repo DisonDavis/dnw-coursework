@@ -1,11 +1,37 @@
-<!DOCTYPE html><html><head><link rel="stylesheet" href="/style.css"><title>Attendee</title></head><body>
-    <h1><%= settings.site_name %></h1><p><%= settings.site_description %></p>
-    <h2>Upcoming Events</h2>
-    <ul>
-      <% events.forEach(e => { %>
-        <li><a href="/attendee/event/<%= e.id %>"><%= e.title %> — <%= e.date %></a></li>
-      <% }) %>
-    </ul>
-    <p><a href="/">← Home</a></p>
-    </body></html>
-    
+<%- include('partials/header') %>
+
+<h1 class="mb-4">Available Events</h1>
+
+<table class="table table-striped table-bordered align-middle">
+  <thead class="table-light">
+    <tr>
+      <th>Title</th>
+      <th>Date</th>
+      <th>Normal Ticket Price</th>
+      <th>Concession Ticket Price</th>
+      <th>Available Normal Tickets</th>
+      <th>Available Concession Tickets</th>
+      <th class="text-end">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% events.forEach(event => { %>
+      <tr>
+        <td><%= event.title %></td>
+        <td><%= event.date %></td>
+        <td>₹<%= event.full_price %></td>           <!-- Normal Ticket Price -->
+        <td>₹<%= event.conc_price %></td>           <!-- Concession Ticket Price -->
+        <td><strong><%= event.full_qty %></strong></td>   <!-- Normal Tickets Available -->
+        <td><strong><%= event.conc_qty %></strong></td>   <!-- Concession Tickets Available -->
+        <td class="text-end">
+          <a href="/attendee/event/<%= event.id %>/view" class="btn btn-sm btn-info me-2">View</a>
+          <a href="/attendee/event/<%= event.id %>" class="btn btn-sm btn-success">Book</a>
+          
+        </td>
+      </tr>
+      
+    <% }) %>
+  </tbody>
+</table>
+
+<%- include('partials/footer') %>

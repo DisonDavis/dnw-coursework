@@ -1,15 +1,35 @@
-<!DOCTYPE html><html><head><link rel="stylesheet" href="/style.css"><title>Edit Event</title></head><body>
-    <h1>Edit Event</h1>
-    <form action="/organiser/edit/<%= event.id %>" method="POST">
-      <label>Title: <input name="title" value="<%= event.title %>" required></label><br>
-      <label>Date: <input type="date" name="date" value="<%= event.date %>" required></label><br>
-      <label>Description:<br><textarea name="description"><%= event.description %></textarea></label><br>
-      <label>Full tickets qty: <input type="number" name="full_qty" value="<%= event.full_qty %>"></label><br>
-      <label>Full price: <input type="number" step="0.01" name="full_price" value="<%= event.full_price %>"></label><br>
-      <label>Concession qty: <input type="number" name="conc_qty" value="<%= event.conc_qty %>"></label><br>
-      <label>Concession price: <input type="number" step="0.01" name="conc_price" value="<%= event.conc_price %>"></label><br>
-      <button>Save</button>
-    </form>
-    <p><a href="/organiser">← Back</a></p>
-    </body></html>
-    
+<%- include('partials/header') %>
+<h1>Edit Event</h1>
+<form action="/organiser/edit/<%= event.id %>" method="POST">
+  <div class="mb-3">
+    <label class="form-label">Title</label>
+    <input name="title" class="form-control" value="<%= event.title %>" required>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Description</label>
+    <textarea name="description" class="form-control" required><%= event.description %></textarea>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Date</label>
+    <input type="date" name="date" class="form-control" value="<%= event.date %>" required>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Full Price Tickets (Quantity)</label>
+    <input type="number" name="full_qty" class="form-control" value="<%= event.full_qty %>" required>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Full Price</label>
+    <input type="number" name="full_price" class="form-control" value="<%= event.full_price %>" step="0.01" required>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Concession Tickets (Quantity)</label>
+    <input type="number" name="conc_qty" class="form-control" value="<%= event.conc_qty %>" required>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Concession Price</label>
+    <input type="number" name="conc_price" class="form-control" value="<%= event.conc_price %>" step="0.01" required>
+  </div>
+  <button class="btn btn-primary">Submit Changes</button>
+  <a href="/organiser" class="btn btn-secondary">Back</a>
+</form>
+<%- include('partials/footer') %>

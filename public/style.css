@@ -1,34 +1,9 @@
 body {
-    font-family: Arial, sans-serif;
-    margin: 30px;
-  }
-  h1, h2 {
-    color: #333;
-  }
-  table {
-    width: 100%; border-collapse: collapse; margin: 15px 0;
-  }
-  table, th, td {
-    border: 1px solid #ccc;
-  }
-  th, td {
-    padding: 8px; text-align: left;
-  }
-  .error {
-    color: red;
-    font-weight: bold;
-  }
-  nav a {
-    margin-right: 10px;
-  }
-  button {
-    margin: 4px;
-    padding: 6px 12px;
-  }
-  input, select, textarea {
-    margin: 4px 0;
-    padding: 4px;
-    width: 100%;
-    box-sizing: border-box;
-  }
-  
+  background-color: #f9f9f9;
+}
+h1, h3 {
+  color: #333;
+}
+.table th, .table td {
+  vertical-align: middle;
+}

@@ -1,16 +1,73 @@
-<!DOCTYPE html><html><head><link rel="stylesheet" href="/style.css"><title><%= event.title %></title></head><body>
-    <h1><%= event.title %></h1>
-    <p><%= event.description %></p>
-    <p>Date: <%= event.date %></p>
-    
-    <% if (error) { %><p class="error"><%= error %></p><% } %>
-    
-    <form action="/attendee/event/<%= event.id %>" method="POST">
-      <label>Name: <input name="attendee_name" required></label><br>
-      <label>Full tickets (available: <%= event.full_qty %>): <input type="number" name="full_count" value="0"></label><br>
-      <label>Concession tickets (available: <%= event.conc_qty %>): <input type="number" name="conc_count" value="0"></label><br>
-      <button>Book Tickets</button>
-    </form>
-    <p><a href="/attendee">← Back</a></p>
-    </body></html>
-    
+<%- include('partials/header') %>
+
+<h1 class="mb-3"><%= event.title %></h1>
+<p><%= event.description %></p>
+<p><strong>Date:</strong> <%= event.date %></p>
+
+<% if (!viewOnly) { %>
+  <% if (error) { %>
+    <div class="alert alert-danger"><%= error %></div>
+  <% } %>
+
+  <form action="/attendee/event/<%= event.id %>" method="POST">
+    <div class="mb-3">
+      <label for="attendee_name" class="form-label">Your Name</label>
+      <input id="attendee_name" name="attendee_name" class="form-control" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="full_count" class="form-label">
+        Full Price Tickets (₹<%= event.full_price %>) —
+        <span class="text-muted">Available: <%= event.full_qty %></span>
+      </label>
+      <input id="full_count" type="number" name="full_count" class="form-control" min="0" max="<%= event.full_qty %>" value="0">
+    </div>
+
+    <div class="mb-3">
+      <label for="conc_count" class="form-label">
+        Concession Tickets (₹<%= event.conc_price %>) —
+        <span class="text-muted">Available: <%= event.conc_qty %></span>
+      </label>
+      <input id="conc_count" type="number" name="conc_count" class="form-control" min="0" max="<%= event.conc_qty %>" value="0">
+    </div>
+
+    <button type="submit" class="btn btn-success">Book</button>
+    <a href="/attendee" class="btn btn-secondary ms-2">Back</a>
+  </form>
+<% } else { %>
+  <a href="/attendee" class="btn btn-secondary mb-4">Back</a>
+<% } %>
+
+<% if (bookings && bookings.length > 0) { %>
+  <h4 class="mt-4">Booking History</h4>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Full Tickets</th>
+        <th>Concession Tickets</th>
+        <% if (viewOnly) { %><th>Actions</th><% } %>
+      </tr>
+    </thead>
+    <tbody>
+      <% bookings.forEach(booking => { %>
+        <tr>
+          <td><%= booking.attendee_name %></td>
+          <td><%= booking.full_count %></td>
+          <td><%= booking.conc_count %></td>
+          <% if (viewOnly) { %>
+            <td>
+              <form action="/attendee/event/<%= event.id %>/booking/<%= booking.id %>/delete" method="POST" onsubmit="return confirm('Are you sure you want to delete this booking?');">
+                <button class="btn btn-sm btn-danger">Delete</button>
+              </form>
+            </td>
+          <% } %>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+<% } else { %>
+  <p>No bookings yet for this event.</p>
+<% } %>
+
+<%- include('partials/footer') %>

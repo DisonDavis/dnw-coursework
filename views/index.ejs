@@ -1,8 +1,5 @@
-<!DOCTYPE html>
-<html><head><link rel="stylesheet" href="/style.css"><title>Home</title></head><body>
-  <h1>Event Manager</h1>
-  <nav>
-    <a href="/organiser">Organiser Panel</a> |
-    <a href="/attendee">Attendee Page</a>
-  </nav>
-</body></html>
+<%- include('partials/header') %>
+<h1 class="mb-4">Welcome to Event Manager</h1>
+<a href="/organiser" class="btn btn-primary">Organiser Home</a>
+<a href="/attendee" class="btn btn-success ms-2">Attendee Home</a>
+<%- include('partials/footer') %>

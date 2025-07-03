@@ -1,33 +1,63 @@
-<!DOCTYPE html><html><head><link rel="stylesheet" href="/style.css"><title>Organiser</title></head><body>
-    <h1>Organiser Dashboard</h1>
-    <h2><%= settings.site_name %></h2><p><%= settings.site_description %></p>
-    <p><a href="/organiser/settings">Site Settings</a></p>
-    <p><a href="/organiser/edit">+ Create New Event</a></p>
-    
-    <h3>All Events</h3>
-    <table>
-      <tr><th>Title</th><th>Date</th><th>Created</th><th>Published</th><th>Qty</th><th>Actions</th></tr>
-      <% events.forEach(e => { %>
-        <tr>
-          <td><%= e.title %></td>
-          <td><%= e.date %></td>
-          <td><%= e.created_at %></td>
-          <td><%= e.published_at || '–' %></td>
-          <td><%= e.full_qty + e.conc_qty %></td>
-          <td>
-            <% if (!e.is_published) { %>
-              <form action="/organiser/publish/<%= e.id %>" method="POST" style="display:inline"><button>Publish</button></form>
-            <% } %>
-            <a href="/organiser/edit/<%= e.id %>">Edit</a>
-            <form action="/organiser/delete/<%= e.id %>" method="POST" style="display:inline"><button>Delete</button></form>
-            <% if (e.is_published) { %>
-              <a href="/attendee/event/<%= e.id %>" target="_blank">View</a>
-            <% } %>
-          </td>
-        </tr>
-      <% }) %>
-    </table>
-    
-    <p><a href="/">← Home</a></p>
-    </body></html>
-    
+<%- include('partials/header') %>
+
+<!-- Site Info Section -->
+<div class="mb-4">
+  <h1 class="mb-1"><%= settings.site_name %></h1>
+  <p class="text-muted"><%= settings.site_description %></p>
+</div>
+
+<a href="/organiser/settings" class="btn btn-secondary mb-3">Site Settings</a>
+<form action="/organiser/create" method="POST" class="d-inline">
+  <button class="btn btn-primary mb-3">Create New Event</button>
+</form>
+
+<h3>Published Events</h3>
+<table class="table table-bordered">
+  <thead>
+    <tr><th>Title</th><th>Date</th><th>Tickets</th><th>Actions</th></tr>
+  </thead>
+  <tbody>
+    <% publishedEvents.forEach(event => { %>
+      <tr>
+        <td><%= event.title %></td>
+        <td><%= event.date %></td>
+        <td>Full: <%= event.full_qty || 0 %>, Concession: <%= event.conc_qty || 0 %></td>
+
+        <td>
+          <a href="/organiser/edit/<%= event.id %>" class="btn btn-sm btn-warning">Edit</a>
+          <form action="/organiser/delete/<%= event.id %>" method="POST" style="display:inline">
+            <button class="btn btn-sm btn-danger">Delete</button>
+          </form>
+        </td>
+      </tr>
+    <% }) %>
+  </tbody>
+</table>
+
+
+<h3>Draft Events</h3>
+<table class="table table-bordered">
+  <thead>
+    <tr><th>Title</th><th>Date</th><th>Tickets</th><th>Actions</th></tr>
+  </thead>
+  <tbody>
+    <% draftEvents.forEach(event => { %>
+      <tr>
+        <td><%= event.title %></td>
+        <td><%= event.date %></td>
+        <td>Full: <%= event.full_qty || 0 %>, Concession: <%= event.conc_qty || 0 %></td>
+
+        <td>
+          <a href="/organiser/edit/<%= event.id %>" class="btn btn-sm btn-warning">Edit</a>
+          <form action="/organiser/publish/<%= event.id %>" method="POST" class="d-inline">
+            <button class="btn btn-sm btn-success">Publish</button>
+          </form>
+          <form action="/organiser/delete/<%= event.id %>" method="POST" class="d-inline">
+            <button class="btn btn-sm btn-danger">Delete</button>
+          </form>
+        </td>
+      </tr>
+    <% }) %>
+  </tbody>
+</table>
+<%- include('partials/footer') %>

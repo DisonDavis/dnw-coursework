@@ -13,7 +13,10 @@ global.db = new sqlite3.Database('database.db', err => {
   db.run("PRAGMA foreign_keys=ON");
 });
 
-app.get('/', (req, res) => res.render('index'));
+app.get('/', (req, res) => {
+  res.render('index', { showBackButton: false });
+});
+
 app.use('/organiser', require('./routes/organiser'));
 app.use('/attendee', require('./routes/attendee'));
 
